@@ -16,8 +16,8 @@ sudo apt install nginx
 <img src='assets/2.png'><br>
 <img src='assets/3.png'><br>
 
-### 2. Создание виртуальных хостингов
-Создаем папку для виратульных хостингов, доавляем файл index.html, прописываем простейший html файл
+### 2. Создание проектов
+Создаем папку для наших проектов, доавляем файл index.html, прописываем простейший html файл
 ```
 sudo mkdir -p /var/www/site1.com/main
 sudo touch /var/www/site1.com/main/index.html
@@ -27,7 +27,7 @@ sudo gedit /var/www/site1.com/main/index.html
 <p>Тоже самое, но теперь для site2.com</p>
 <img src='assets/6.png'><br>
 
-<p>Теперь в hosts прописываем домены данных виртуальных хостингов: </p>
+<p>Теперь в hosts прописываем домены наших сайтов: </p>
 
 ```
 sudo nano /etc/hosts/
@@ -45,7 +45,7 @@ sudo openssl req -x509 -nodes -newkey rsa:2048 -days 365 -keyout /etc/ssl/privat
 <img src='assets/9.png'>
 <p>При использовании самоподписанных сертификатов браузеры будут предупреждать, что соединение небезопасно, так как сертификат не подтверждён доверенным центром сертификации. Это ожидаемое поведение при самоподписанных сертификатах.</p>
 
-### 4. Настройка конфигарации виртуальных хостов.
+### 4. Настройка конфигарации
 ```
 sudo nano /etc/nginx/sites-available/site1.com
 ```
@@ -57,7 +57,10 @@ server {
     return 301 https://$host$request_uri;
 }
 ```
-#### 4.2 Настройка виртуальных хостов с использованием HTTPS
+<p>listen 80; — Указывает серверу слушать HTTP-запросы на порту 80 (стандартный порт для HTTP).<br>
+return 301 https://$host$request_uri; — Выполняет перенаправление всех запросов с HTTP на HTTPS (статус код 301 — постоянное перенаправление). $host — это текущий домен, а $request_uri — полный путь запроса </p>
+
+#### 4.2 Настройка конфигурации с использованием HTTPS
 ```
 server {
     listen 443 ssl;
@@ -72,20 +75,35 @@ server {
     }
 }
 ```
-<p>Тоже самое для виртуального хостинга</p>
+<p>
+listen 443 ssl;: Указывает, что сервер должен слушать порт 443, который используется для зашифрованных HTTPS-соединений.  ssl говорит Nginx, что для обработки запросов нужно использовать SSL для шифрования трафика.<br>
+
+ssl_certificate /etc/ssl/certs/site1.com.crt;: Указывает путь к файлу SSL-сертификата для этого домена.<br>
+
+ssl_certificate_key /etc/ssl/private/site1.com.key;: Указывает путь к приватному ключу, который используется в паре с сертификатом. <br>
+
+location / { ... }: Блок location определяет, как Nginx должен обрабатывать запросы для определённых путей. <br>
+
+root /var/www/site1.com/main;: Указывает корневую директорию, из которой Nginx будет загружать файлы для этого сайта.
+</p>
+<p>Тоже самое для второго виртуального хостинга</p>
 <img src='assets/10.png'>
 
 ### 5. Alias
-<p>Для виртуального хостинга <i>site1.com</i> добавляем каталог test, создаем файл index.html</p>
+<p>Для проекта <i>site1.com</i> добавляем каталог test, создаем файл index.html</p>
 
 ```
 sudo mkdir -p /var/www/site1.com/test
 sudo touch /var/www/site1.com/test/index.html
 sudo gedit /var/www/site1.com/test/index.html
+
 ```
 <img src='assets/11.png'>
 <p><b>Настраиваем файл конфигурации</b></p>
 
+```
+sudo nano /etc/nginx/sites-available/site1.com
+```
 ```
 server {
     listen 443 ssl;
@@ -100,7 +118,7 @@ server {
     }
     location /test {
         alias /var/www/site1.com/test;
-        index index.html
+        index index.html;
     }
 }
 ```
@@ -119,3 +137,11 @@ sudo systemctl restart nginx
 sudo nginx -t
 ```
 <img src='assets/12.png'>
+
+### 7. Проверка
+<img src='assets/13.png'>
+<img src='assets/14.png'>
+<img src='assets/15.png'>
+
+### 8. Итоги
+<p>Сервер настроен на работу с HTTPS для двух доменов с самоподписанным сертификатом, перенаправлением HTTP на HTTPS, и алиасами для директорий (test).</p>
