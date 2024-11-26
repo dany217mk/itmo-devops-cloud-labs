@@ -1,0 +1,22 @@
+name: Bad CI/CD Pipeline
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Setup environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install nodejs npm
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: echo "Skipping tests..."
+      - name: Build application
+        run: npm run build
+      - name: Deploy to production
+        run: echo "Deploying directly to production..."
