@@ -1,0 +1,23 @@
+name: Bad CI/CD Pipeline
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install git -y
+          git clone https://github.com/${{ github.repository }} repo
+      - name: Debug workspace
+        run: |
+          pwd
+          ls -al
+      - name: Run tests
+        run: echo "Skipping tests..."
+      - name: Build application
+        run: echo "Skipping build..."
+      - name: Deploy to production
+        run: echo "Deploying directly to production without checks!"

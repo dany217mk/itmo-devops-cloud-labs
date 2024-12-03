@@ -1,0 +1,42 @@
+name: Good CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install git -y
+          git clone https://github.com/${{ github.repository }} repo
+          cd repo
+      - name: Debug workspace
+        run: |
+          pwd
+          ls -al
+      - name: Run tests
+        run: |
+          cd repo
+          # команды тестирования проекта
+          echo "Running tests..."
+          echo "All tests passed!"
+      - name: Build application
+        run: |
+          cd repo
+          # команды сборки проекта
+          echo "Building the application..."
+          echo "Build completed!"
+      - name: Deploy to production
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          cd repo
+          # команды деплоя
+          echo "Deploying to production..."
