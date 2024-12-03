@@ -31,13 +31,13 @@
 
 ## Дано: 
 ![Дано](assets/3.png)
-<p>Вариант 7: <a target='__blank' href='https://drive.google.com/file/d/1b5wWQw70PJ5vjM0xDOWBXRSA_GN204SR/view?usp=drive_link'>https://drive.google.com/file/d/1b5wWQw70PJ5vjM0xDOWBXRSA_GN204SR/view?usp=drive_link</a></p>
-<p>Образец: <a target='__blank' href='https://drive.google.com/file/d/1NocJXRGEZoTfrsr8DUIY4GCZUAZN08XV/view?usp=drive_link'>https://drive.google.com/file/d/1NocJXRGEZoTfrsr8DUIY4GCZUAZN08XV/view?usp=drive_link</a></p>
+<p>Вариант 7: <a target="_blank" href='https://drive.google.com/file/d/1b5wWQw70PJ5vjM0xDOWBXRSA_GN204SR/view?usp=drive_link'>https://drive.google.com/file/d/1b5wWQw70PJ5vjM0xDOWBXRSA_GN204SR/view?usp=drive_link</a></p>
+<p>Образец: <a target="_blank" href='https://drive.google.com/file/d/1NocJXRGEZoTfrsr8DUIY4GCZUAZN08XV/view?usp=drive_link'>https://drive.google.com/file/d/1NocJXRGEZoTfrsr8DUIY4GCZUAZN08XV/view?usp=drive_link</a></p>
 
 
 ## Ход рабрты
 ![алгоритм работы](assets/4.png)
-<p>Выполненная работа: <a target='__blank' href="https://docs.google.com/spreadsheets/d/1dSqh0L-ptrkUvfCBzG0Qu_jR81TVgg8G6D6ZNOXBVZE/edit?gid=492535656#gid=492535656">https://docs.google.com/spreadsheets/d/1dSqh0L-ptrkUvfCBzG0Qu_jR81TVgg8G6D6ZNOXBVZE/edit?gid=492535656#gid=492535656</a></p>
+<p>Выполненная работа: <a target="_blank" href="https://docs.google.com/spreadsheets/d/1dSqh0L-ptrkUvfCBzG0Qu_jR81TVgg8G6D6ZNOXBVZE/edit?gid=492535656#gid=492535656">https://docs.google.com/spreadsheets/d/1dSqh0L-ptrkUvfCBzG0Qu_jR81TVgg8G6D6ZNOXBVZE/edit?gid=492535656#gid=492535656</a></p>
 
 ## Вывод
 <p>...</p>

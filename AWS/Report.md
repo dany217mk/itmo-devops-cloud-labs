@@ -31,12 +31,12 @@
 ## Дано: 
 ![Дано](assets/3.png)
 <p>Вариант 7: <a target='__blank' href='https://drive.google.com/file/d/1NNxGH3oLnrGKkZkdEpX_1UiAQKK0gzMT/view?usp=drive_link'>https://drive.google.com/file/d/1NNxGH3oLnrGKkZkdEpX_1UiAQKK0gzMT/view?usp=drive_link</a></p>
-<p>Образец: <a target='__blank' href='https://drive.google.com/file/d/1NocJXRGEZoTfrsr8DUIY4GCZUAZN08XV/view?usp=drive_link'>https://drive.google.com/file/d/1NocJXRGEZoTfrsr8DUIY4GCZUAZN08XV/view?usp=drive_link</a></p>
+<p>Образец: <a target="_blank" href='https://drive.google.com/file/d/1NocJXRGEZoTfrsr8DUIY4GCZUAZN08XV/view?usp=drive_link'>https://drive.google.com/file/d/1NocJXRGEZoTfrsr8DUIY4GCZUAZN08XV/view?usp=drive_link</a></p>
 
 
 ## Ход рабрты
 ![алгоритм работы](assets/4.png)
-<p>Выполненная работа: <a target='__blank' href="https://docs.google.com/spreadsheets/d/1DPtO2PZnmMtCWoN18Gan4RGa-0XnhY77qLefs6m-Lwg/edit?gid=28720847#gid=28720847">https://docs.google.com/spreadsheets/d/1DPtO2PZnmMtCWoN18Gan4RGa-0XnhY77qLefs6m-Lwg/edit?gid=28720847#gid=28720847</a></p>
+<p>Выполненная работа: <a target="_blank" href="https://docs.google.com/spreadsheets/d/1DPtO2PZnmMtCWoN18Gan4RGa-0XnhY77qLefs6m-Lwg/edit?gid=28720847#gid=28720847">https://docs.google.com/spreadsheets/d/1DPtO2PZnmMtCWoN18Gan4RGa-0XnhY77qLefs6m-Lwg/edit?gid=28720847#gid=28720847</a></p>
 
 ## Вывод
 <p>...</p>
