@@ -28,7 +28,10 @@ jobs:
         run: |
           pip install pytest
           pytest tests/
-
+      - name: Add source placeholder
+        run: |
+          mkdir -p src
+          echo "print('Hello, World!')" > src/main.py
       - name: Build and deploy
         run: |
           echo "Building application..."

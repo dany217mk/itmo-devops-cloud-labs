@@ -41,11 +41,17 @@ jobs:
         run: |
           mkdir -p tests
           echo "def test_placeholder(): assert True" > tests/test_placeholder.py
+      
       - name: Run tests
         run: |
           pip install pytest
           pytest tests/
-
+      
+      - name: Add source placeholder
+        run: |
+          mkdir -p src
+          echo "print('Hello, World!')" > src/main.py
+          
       - name: Build and deploy
         run: |
           echo "Building application..."
