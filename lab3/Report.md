@@ -1,96 +1,85 @@
 # 3 Лабораторная  
+## Требования
+
+1. Написать “плохой” CI/CD файл, который работает, но в нем есть не менее пяти “bad practices” по написанию CI/CD
+2. Написать “хороший” CI/CD, в котором эти плохие практики исправлены
+3. В Readme описать каждую из плохих практик в плохом файле, почему она плохая и как в хорошем она была исправлена, как исправление повлияло на результат
+4. Прочитать историю про Васю (она быстрая, забавная и того стоит): https://habr.com/ru/articles/689234/
+
+# CI/CD это кто?
+![img.png](assets/img.png)
+
+CI/CD — это способ автоматизировать процесс создания, проверки и доставки кода до пользователей, чтобы все работало быстро и без ошибок. CI (Continuous Integration) — это когда разработчики регулярно добавляют изменения в общий проект, а система автоматически проверяет, не сломалось ли что-то. CD (Continuous Delivery) — это следующий этап, где всё настроено так, чтобы изменения автоматически проходили тесты и могли быть сразу отправлены пользователям. Это как конвейер: написал, проверил, отправил — всё без лишней возни вручную.
+
 ## 1. Плохой CI/CD файл  
+![img.png](assets/img1.png)
 
 Мы создадим CI/CD файл с убогими практиками, которые ну вообще не очень.  
 
 ```yaml
-name: Bad CI/CD Pipeline
-
-on: [push]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install git -y
-          git clone https://github.com/${{ github.repository }} repo
-      - name: Debug workspace
-        run: |
-          pwd
-          ls -al
-      - name: Run tests
-        run: echo "Skipping tests..."
-      - name: Build application
-        run: echo "Skipping build..."
-      - name: Deploy to production
-        run: echo "Deploying directly to production without checks!"
-```
-### 1.1 Использование ubuntu-latest
-Использование ubuntu-latest может привести к проблемам совместимости, так как версия системы может измениться.
-
-### 1.2 Пропуск тестов
-Этап тестирования полностью пропущен (echo "Skipping tests..."), что делает процесс ненадежным.
-
-### 1.3 Пропуск этапа сборки
-Сборка также пропущена (echo "Skipping build..."), что делает пайплайн практически бесполезным.
-
-### 1.4 Прямой деплой в production
-Код деплоится напрямую без проверки ветки или дополнительных условий (echo "Deploying directly to production without checks!").
-
-### 1.5 Отсутствие логики обработки ошибок
-Нет проверок или обработки ошибок на любом из этапов. Если что-то пойдет не так, пайплайн завершится успешно, даже если результат некорректный.
-
-
-## 2. Хороший CI/CD файл
-
-Теперь, когда плохой файл готов (запускать его, пожалуй не будем) самое время сделать легендарный, потрясающий, красивейший, хороший CI/CD файл.
-
-```yaml
-name: Good CI/CD Pipeline
+name: Bad CI/CD
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+      - lab-3
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Install dependencies
         run: |
-          sudo apt-get update -y
-          sudo apt-get install git -y
-          git clone https://github.com/${{ github.repository }} repo
-          cd repo
-      - name: Debug workspace
-        run: |
-          pwd
-          ls -al
+          apt-get update
+          apt-get install -y python3 python3-pip
+        
       - name: Run tests
         run: |
-          cd repo
-          # команды тестирования проекта
-          echo "Running tests..."
-          echo "All tests passed!"
-      - name: Build application
+          pip install pytest
+          pytest tests/
+        
+      - name: Build and deploy
         run: |
-          cd repo
-          # команды сборки проекта
-          echo "Building the application..."
-          echo "Build completed!"
-      - name: Deploy to production
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+          echo "Building application..."
+          mkdir dist
+          cp -r src/* dist/
+          echo "Deploying application..."
+          echo "Deployed successfully!"
+
+      - name: Publish results
         run: |
-          cd repo
-          # команды деплоя
-          echo "Deploying to production..."
+          echo "Tests passed!"
+```
+### 1.1 Использование ubuntu-latest
+Использование ubuntu-latest может привести к проблемам совместимости, так как версия системы может измениться.
+
+### 1.2 Отсутствие версионирования в checkout
+Указание только `@v2` вместо конкретной версии может привести к тому, что при изменении самого действия что-то сломается. Лучше явно указать версию или использовать зафиксированный коммит, чтобы всегда получать одинаковый результат.
+
+### 1.3 Неоптимальная установка зависимостей
+Использование `apt-get` на каждом запуске — плохая идея, потому что это медленно, и GitHub Actions не сможет закэшировать эти шаги. Из-за этого каждый раз ты теряешь время.
+
+### 1.4 Работа без изоляции
+Установка зависимостей и запуск тестов без виртуального окружения `venv` — плохая темка. Это может вызвать конфликты между версиями библиотек, особенно если ты переносишь проект между разными машинами или окружениями.
+
+### 1.5 Все в одном шаге
+Сборка и деплой в одном месте — это дурдом какой-то. Если что-то пойдет не так, будет сложно понять, где именно ошибка. Лучше разделять задачи, чтобы каждая выполняла свою функцию.
+
+### 1.6 Нет проверки ошибок
+Даже если тесты упадут, пайплайн все равно продолжит работать. Это очень опасно, потому что деплой может произойти с нерабочим кодом. Нужно явно проверять статус каждого шага.
+
+
+## 2. Хороший CI/CD файл
+![computer-break-computer.gif](assets%2Fcomputer-break-computer.gif)
+
+Теперь, когда плохой файл готов (запускать его, пожалуй не будем) самое время сделать легендарный, потрясающий, красивейший, хороший CI/CD файл.
+
+```yaml
 ```
 
 ### 2.1 Использование конкректной версии `ubuntu`
