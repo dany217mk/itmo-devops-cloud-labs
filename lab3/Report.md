@@ -17,13 +17,12 @@ CI/CD — это способ автоматизировать процесс с
 Мы создадим CI/CD файл с убогими практиками, которые ну вообще не очень.  
 
 ```yaml
-name: Bad CI/CD
+name: Bad CI/CD!
 
 on:
   push:
     branches:
       - main
-      - lab-3
 
 jobs:
   build:
@@ -32,17 +31,21 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
       - name: Install dependencies
         run: |
-          apt-get update
-          apt-get install -y python3 python3-pip
-        
+          sudo apt-get update
+          sudo apt-get install -y python3 python3-pip
+
+      - name: Add test placeholder(та самая заглушка) 
+        run: |
+          mkdir -p tests
+          echo "def test_placeholder(): assert True" > tests/test_placeholder.py
       - name: Run tests
         run: |
           pip install pytest
           pytest tests/
-        
+
       - name: Build and deploy
         run: |
           echo "Building application..."
@@ -50,10 +53,6 @@ jobs:
           cp -r src/* dist/
           echo "Deploying application..."
           echo "Deployed successfully!"
-
-      - name: Publish results
-        run: |
-          echo "Tests passed!"
 ```
 ### 1.1 Использование ubuntu-latest
 Использование ubuntu-latest может привести к проблемам совместимости, так как версия системы может измениться.
@@ -73,11 +72,13 @@ jobs:
 ### 1.6 Нет проверки ошибок
 Даже если тесты упадут, пайплайн все равно продолжит работать. Это очень опасно, потому что деплой может произойти с нерабочим кодом. Нужно явно проверять статус каждого шага.
 
-### 1.7 Нет доступа
+### Проблемы и ошибки при выполнении
 В первый раз мы запушили плохой файл на гитхаб и он выдал ошибку:
 ![img.png](assets/error.png)
 Это фиксится добавлением `sudo`
-
+####
+Далее вылезла ошибка об отсутствии тестиков, мы добавили заглушку.
+![img_1.png](assets/img2.png)
 
 ## 2. Хороший CI/CD файл
 ![computer-break-computer.gif](assets%2Fcomputer-break-computer.gif)
