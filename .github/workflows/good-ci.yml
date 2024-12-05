@@ -1,42 +1,51 @@
-name: Good CI/CD Pipeline
+name: Good CI/CD
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
-
+      - lab-3
+      
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
+
     steps:
       - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Add test placeholder
         run: |
-          sudo apt-get update -y
-          sudo apt-get install git -y
-          git clone https://github.com/${{ github.repository }} repo
-          cd repo
-      - name: Debug workspace
-        run: |
-          pwd
-          ls -al
+          mkdir -p tests
+          echo "def test_placeholder(): assert True" > tests/test_placeholder.py
+
       - name: Run tests
         run: |
-          cd repo
-          # команды тестирования проекта
-          echo "Running tests..."
-          echo "All tests passed!"
+          pip install pytest
+          pytest tests/ --maxfail=1
+
+      - name: Add source placeholder
+        run: |
+          mkdir -p src
+          echo "print('Hello, World!')" > src/main.py
+
       - name: Build application
         run: |
-          cd repo
-          # команды сборки проекта
-          echo "Building the application..."
-          echo "Build completed!"
-      - name: Deploy to production
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+          echo "Building application..."
+          mkdir -p dist
+          if [ -d "src" ]; then
+            cp -r src/* dist/
+          else
+            echo "Warning: 'src/' directory not found. Skipping copy step."
+          fi
+
+      - name: Deploy application
         run: |
-          cd repo
-          # команды деплоя
-          echo "Deploying to production..."
+          echo "Deploying application..."
+          echo "Deployed successfully!"
+          
