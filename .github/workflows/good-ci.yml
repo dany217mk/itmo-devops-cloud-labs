@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - lab-3
-      
+
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -19,33 +19,43 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Add test placeholder
-        run: |
-          mkdir -p tests
-          echo "def test_placeholder(): assert True" > tests/test_placeholder.py
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Run tests
-        run: |
-          pip install pytest
-          pytest tests/ --maxfail=1
-
-      - name: Add source placeholder
-        run: |
-          mkdir -p src
-          echo "print('Hello, World!')" > src/main.py
+        run: pytest tests/ --maxfail=1
 
       - name: Build application
         run: |
           echo "Building application..."
           mkdir -p dist
-          if [ -d "src" ]; then
-            cp -r src/* dist/
-          else
-            echo "Warning: 'src/' directory not found. Skipping copy step."
-          fi
+          cp -r src/* dist/
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-application
+          path: dist/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: built-application
 
       - name: Deploy application
         run: |
           echo "Deploying application..."
           echo "Deployed successfully!"
-          
