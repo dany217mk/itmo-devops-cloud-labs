@@ -1,0 +1,1 @@
+print("zdarova, privet, hi, kak sam, bratishka?")

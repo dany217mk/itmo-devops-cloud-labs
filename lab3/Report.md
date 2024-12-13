@@ -190,3 +190,96 @@ jobs:
     <img src="assets/img4.png">
     <img src="assets/dantedance.gif">
 </p>
+
+## 3. Исправляем плохой хороший CI/CD (вносим правки согласно комментам)
+
+<p align="center">
+    <img src="assets/скелты.gif">
+</p>
+
+### На нашу предыдущую попытку сдачи были даны следующие комментарии:
+1. Установку зависимосткй нужно кэшировать
+2. Странное решение создавать placeholder в CI, почему их было просто не закоммитить?
+3. Сейчас все действия происходят в одной job, нужно хотя бы deploy от туда вынести, а дляд артефакт делать upload в build job и download в deploy job
+
+### Че это значит?
+
+1. ну тут понятно
+2. Здесь мы чето не подумали
+3. ну а тут все по фактам
+
+### Фиксируем прибыль (изменения) 
+
+```yaml
+name: Good CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - lab-3
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest tests/ --maxfail=1
+
+      - name: Build application
+        run: |
+          echo "Building application..."
+          mkdir -p dist
+          cp -r src/* dist/
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-application
+          path: dist/
+  
+  deploy:
+    needs: build
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: built-application
+
+      - name: Deploy application
+        run: |
+          echo "Deploying application..."
+          echo "Deployed successfully!"
+```
+
+### Че измелилось то?
+
+1. Добавлено использование actions/cache@v3 для кэширования директорий pip.
+
+2. Удаление заглушек (placeholder) сделали, теперь все круто.
+
+3. Разделение на две jobs
+
+### Теперь пытаемся запустить
