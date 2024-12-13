@@ -283,3 +283,13 @@ jobs:
 3. Разделение на две jobs
 
 ### Теперь пытаемся запустить
+
+<p align="center">
+    <img src="assets/img7261.png">
+</p>
+
+### Ну теперь вроде все.
+
+<p align="center">
+    <img src="assets/smoking-skeleton.gif">
+</p>
