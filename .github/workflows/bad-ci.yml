@@ -1,23 +1,41 @@
-name: Bad CI/CD Pipeline
+name: Bad CI/CD
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - lab-3
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
         run: |
-          sudo apt-get update -y
-          sudo apt-get install git -y
-          git clone https://github.com/${{ github.repository }} repo
-      - name: Debug workspace
+          sudo apt-get update
+          sudo apt-get install -y python3 python3-pip
+
+      - name: Add test placeholder
         run: |
-          pwd
-          ls -al
+          mkdir -p tests
+          echo "def test_placeholder(): assert True" > tests/test_placeholder.py
+
       - name: Run tests
-        run: echo "Skipping tests..."
-      - name: Build application
-        run: echo "Skipping build..."
-      - name: Deploy to production
-        run: echo "Deploying directly to production without checks!"
+        run: |
+          pip install pytest
+          pytest tests/
+      - name: Add source placeholder
+        run: |
+          mkdir -p src
+          echo "print('Hello, World!')" > src/main.py
+      - name: Build and deploy
+        run: |
+          echo "Building application..."
+          mkdir dist
+          cp -r src/* dist/
+          echo "Deploying application..."
+          echo "Deployed successfully!"

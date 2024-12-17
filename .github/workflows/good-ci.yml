@@ -1,42 +1,61 @@
-name: Good CI/CD Pipeline
+name: Good CI/CD
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+      - lab-3
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
+
     steps:
       - name: Checkout code
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install git -y
-          git clone https://github.com/${{ github.repository }} repo
-          cd repo
-      - name: Debug workspace
-        run: |
-          pwd
-          ls -al
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       - name: Run tests
-        run: |
-          cd repo
-          # команды тестирования проекта
-          echo "Running tests..."
-          echo "All tests passed!"
+        run: pytest tests/ --maxfail=1
+
       - name: Build application
         run: |
-          cd repo
-          # команды сборки проекта
-          echo "Building the application..."
-          echo "Build completed!"
-      - name: Deploy to production
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+          echo "Building application..."
+          mkdir -p dist
+          cp -r src/* dist/
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-application
+          path: dist/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: built-application
+
+      - name: Deploy application
         run: |
-          cd repo
-          # команды деплоя
-          echo "Deploying to production..."
+          echo "Deploying application..."
+          echo "Deployed successfully!"

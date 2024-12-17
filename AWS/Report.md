@@ -30,7 +30,7 @@
 
 ## Дано: 
 ![Дано](assets/3.png)
-<p>Вариант 7: <a target='__blank' href='https://drive.google.com/file/d/1NNxGH3oLnrGKkZkdEpX_1UiAQKK0gzMT/view?usp=drive_link'>https://drive.google.com/file/d/1NNxGH3oLnrGKkZkdEpX_1UiAQKK0gzMT/view?usp=drive_link</a></p>
+<p>Вариант 7: <a target='_blank' href='https://drive.google.com/file/d/1NNxGH3oLnrGKkZkdEpX_1UiAQKK0gzMT/view?usp=drive_link'>https://drive.google.com/file/d/1NNxGH3oLnrGKkZkdEpX_1UiAQKK0gzMT/view?usp=drive_link</a></p>
 <p>Образец: <a target="_blank" href='https://drive.google.com/file/d/1NocJXRGEZoTfrsr8DUIY4GCZUAZN08XV/view?usp=drive_link'>https://drive.google.com/file/d/1NocJXRGEZoTfrsr8DUIY4GCZUAZN08XV/view?usp=drive_link</a></p>
 
 
