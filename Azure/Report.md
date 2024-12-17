@@ -31,6 +31,7 @@
 
 ## Дано: 
 ![Дано](assets/3.png)
+<p>Данные лабораторной работы 1: <a target="_blank" href='https://github.com/dany217mk/itmo-devops-cloud-labs/blob/main/AWS/Report.md'>https://github.com/dany217mk/itmo-devops-cloud-labs/blob/main/AWS/Report.md</a></p>
 <p>Вариант 7: <a target="_blank" href='https://drive.google.com/file/d/1b5wWQw70PJ5vjM0xDOWBXRSA_GN204SR/view?usp=drive_link'>https://drive.google.com/file/d/1b5wWQw70PJ5vjM0xDOWBXRSA_GN204SR/view?usp=drive_link</a></p>
 <p>Образец: <a target="_blank" href='https://drive.google.com/file/d/1NocJXRGEZoTfrsr8DUIY4GCZUAZN08XV/view?usp=drive_link'>https://drive.google.com/file/d/1NocJXRGEZoTfrsr8DUIY4GCZUAZN08XV/view?usp=drive_link</a></p>
 
