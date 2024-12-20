@@ -36,7 +36,10 @@
 
 ## Ход рабрты
 ![алгоритм работы](assets/4.png)
-<p><b>Выполненная работа:</b> <a target="_blank" href="https://docs.google.com/spreadsheets/d/1DPtO2PZnmMtCWoN18Gan4RGa-0XnhY77qLefs6m-Lwg/edit?gid=28720847#gid=28720847">https://docs.google.com/spreadsheets/d/1DPtO2PZnmMtCWoN18Gan4RGa-0XnhY77qLefs6m-Lwg/edit?gid=28720847#gid=28720847</a></p>
+<!--<p><b>Выполненная работа:</b> <a target="_blank" href="https://docs.google.com/spreadsheets/d/1DPtO2PZnmMtCWoN18Gan4RGa-0XnhY77qLefs6m-Lwg/edit?gid=28720847#gid=28720847">https://docs.google.com/spreadsheets/d/1DPtO2PZnmMtCWoN18Gan4RGa-0XnhY77qLefs6m-Lwg/edit?gid=28720847#gid=28720847</a></p>-->
+<p><b>Выполненная работа:</b> </p>
+<img alt='https://docs.google.com/spreadsheets/d/1DPtO2PZnmMtCWoN18Gan4RGa-0XnhY77qLefs6m-Lwg/edit?gid=28720847#gid=28720847">https://docs.google.com/spreadsheets/d/1DPtO2PZnmMtCWoN18Gan4RGa-0XnhY77qLefs6m-Lwg/edit?gid=28720847#gid=28720847' src='assets/screen.png'>
+
 
 <p><b>Источник:</b> <a target="_blank" href='https://aws.amazon.com/ru/documentation-overview/?nc2=h_ql_doc_do'>AWS Documentation Overview</a></p>
 
